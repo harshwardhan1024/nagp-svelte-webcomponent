@@ -95,7 +95,7 @@
             <label for="saveAtRoot">Save at Root</label>
         </span>
 
-        <select bind:value={parentDirectoryIdToSaveIn} disabled={saveAtRoot} part="parent-input">
+        <select bind:value={parentDirectoryIdToSaveIn} disabled={saveAtRoot} part={saveAtRoot ? "parent-input-disabled" : "parent-input"}>
             {#each $fileStore.filter(n => !n.isFile) as node}
             <option value={node.id}>{node.name}</option>
             {/each}
@@ -109,7 +109,7 @@
     <div class="margin-top-lg flex-row column-gap">
         <button 
             class="flex-one"
-            part="save-btn"
+            part={isDisabled(name, saveAtRoot, parentDirectoryIdToSaveIn) ? "save-btn-disabled" : "save-btn"}
             on:click={updateFileStore}
             disabled="{isDisabled(name, saveAtRoot, parentDirectoryIdToSaveIn)}">
             Save
